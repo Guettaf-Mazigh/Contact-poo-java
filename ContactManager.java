@@ -1,12 +1,9 @@
 import java.util.ArrayList;
-import java.util.List;
 
-public class ContactManager extends Contact {
+public class ContactManager { // Modified to reflect the "has-a" relationship between classes
     private ArrayList<Contact> contacts;
 
-    public ContactManager(String lastname, String firstName, String email, String phone, List<String> groups,
-            String notes) {
-        super(lastname, firstName, email, phone, groups, notes);
+    public ContactManager() {
         contacts = new ArrayList<>();
     }
 
@@ -19,10 +16,12 @@ public class ContactManager extends Contact {
             System.out.println("The contact's phone number is empty. Unable to add the contact.");
         else if (phoneVerificationResult == -3)
             System.out.println("The contact's Name is empty. Unable to add the contact.");
+        else if (phoneVerificationResult == -4)
+            System.out.println("The phone number is less than 10 digits.");
         else 
             contacts.add(contact);
     }
-    
+
     // This method returns the information of the person with the specified phone number.
     public Contact searchForContact(String phone) {
         for(Contact contact : contacts) {
@@ -35,12 +34,23 @@ public class ContactManager extends Contact {
     
     //This methode deletes a contact if the firstname insered is found
     public void deletContactByFirstname(String firstname){
-        for(Contact count : contacts){
-            if(count.getFirstName().equals(firstname)){
-                contacts.remove(count);
+        for(Contact contact : contacts){
+            if(contact.getFirstName().equals(firstname)){
+                contacts.remove(contact);
                 System.out.println("Don !");
                 break;
             }
         }
+    }
+
+    //DisplayContacts
+    public void DisplayContacts(){
+        if(contacts != null && contacts.size() != 0){//checking of existance and .. of contact ArrayList 
+            for(Contact contact : contacts){
+                System.out.println(contact);
+            }
+        }
+        else
+            System.out.println("You don't have any contact !");
     }
 }
